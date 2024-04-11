@@ -32,6 +32,7 @@ class MovieMapper @Inject constructor() {
     fun searchMovieResponseToMoviesResult(dto: SearchMoviesByParamsResponse): MoviesSearchResult {
         return with(dto) {
             MoviesSearchResult(
+                currentPage = page,
                 pages = pages,
                 movies = movies.map {
                     mapMovieToDomain(it)

@@ -5,5 +5,6 @@ import com.google.gson.annotations.SerializedName
 
 data class SearchMoviesByParamsResponse(
     @SerializedName("docs") val movies: List<MovieDto>,
+    val page: Int,
     val pages: Int
 )
