@@ -5,7 +5,7 @@ import com.github.lzaytseva.kinopoiskapitest.data.exception.model.NetworkExcepti
 import com.github.lzaytseva.kinopoiskapitest.data.network.api.KinopoiskApiService
 import com.github.lzaytseva.kinopoiskapitest.data.network.api.SearchMoviesRemoteDataSource
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.request.SearchMovieByParamsRequest
-import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.SearchMovieByParamsResponse
+import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.SearchMoviesByParamsResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -17,7 +17,7 @@ class SearchMoviesRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun searchMoviesByParams(
         request: SearchMovieByParamsRequest
-    ): SearchMovieByParamsResponse {
+    ): SearchMoviesByParamsResponse {
         return withContext(Dispatchers.IO) {
             try {
                 apiService.searchMoviesByParams(

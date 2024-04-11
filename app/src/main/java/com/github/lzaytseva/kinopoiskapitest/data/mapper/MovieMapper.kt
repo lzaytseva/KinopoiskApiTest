@@ -1,12 +1,14 @@
 package com.github.lzaytseva.kinopoiskapitest.data.mapper
 
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.MovieDto
+import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.SearchMoviesByParamsResponse
 import com.github.lzaytseva.kinopoiskapitest.domain.model.Movie
+import com.github.lzaytseva.kinopoiskapitest.domain.model.MoviesSearchResult
 import javax.inject.Inject
 
 class MovieMapper @Inject constructor() {
 
-    private fun mapMovieShortDescToDomain(dto: MovieDto): Movie {
+    private fun mapMovieToDomain(dto: MovieDto): Movie {
         return with(dto) {
             Movie(
                 id = id,
@@ -23,6 +25,17 @@ class MovieMapper @Inject constructor() {
                     ?.take(MAX_COUNTRIES_TO_DISPLAY)
                     ?.map { it.name }
                     ?.joinToString()
+            )
+        }
+    }
+
+    fun searchMovieResponseToMoviesResult(dto: SearchMoviesByParamsResponse): MoviesSearchResult {
+        return with(dto) {
+            MoviesSearchResult(
+                pages = pages,
+                movies = movies.map {
+                    mapMovieToDomain(it)
+                }
             )
         }
     }
