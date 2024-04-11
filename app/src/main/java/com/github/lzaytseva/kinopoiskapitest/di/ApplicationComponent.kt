@@ -1,6 +1,7 @@
 package com.github.lzaytseva.kinopoiskapitest.di
 
 import android.content.Context
+import com.github.lzaytseva.kinopoiskapitest.presentation.viewmodel.ViewModelFactory
 import dagger.BindsInstance
 import dagger.Component
 
@@ -14,6 +15,10 @@ import dagger.Component
     ]
 )
 interface ApplicationComponent {
+
+    fun getViewModelFactory(): ViewModelFactory
+
+    fun getMovieDetailsComponentFactory(): MovieDetailsComponent.Factory
 
     @Component.Factory
     interface Factory {
