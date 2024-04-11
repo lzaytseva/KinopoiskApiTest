@@ -1,9 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.KinopoiskApiTest" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.KinopoiskApiTest" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/screen_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
-
-    <style name="Theme.KinopoiskApiTest" parent="Base.Theme.KinopoiskApiTest" />
 </resources>

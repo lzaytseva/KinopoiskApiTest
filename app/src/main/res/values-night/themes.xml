@@ -1,7 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.KinopoiskApiTest" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Theme.KinopoiskApiTest" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/screen_bg</item>
     </style>
 </resources>
