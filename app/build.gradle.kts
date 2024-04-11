@@ -16,6 +16,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val key = property("apiKey")?.toString() ?: error("missing apikey in gradle.properties")
+        buildConfigField("String", "KINOPOISK_API_KEY", "\"$key\"")
     }
 
     buildTypes {
