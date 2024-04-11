@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">KinopoiskApiTest</string>
+    <string name="values_with_divider">%1$s%2$s%3$s</string>
+    <string name="nothing_found">По Вашему запросу ничего не найдено</string>
+    <string name="server_error">Ошибка сервера. Попробуйте позже</string>
+    <string name="undefined_error">Что-то пошло не так.. Попробуйте позже или обратитесь в поддержку</string>
+    <string name="no_internet_error">Проверьте подключение к интернету</string>
+    <string name="btn_retry">Обновить</string>
+    <string name="all_movies_label">Все фильмы</string>
 </resources>

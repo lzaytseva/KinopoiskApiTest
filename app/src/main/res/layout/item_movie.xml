@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/layout_padding"
+    android:paddingTop="@dimen/layout_padding">
+
+    <ImageView
+        android:id="@+id/iv_poster"
+        android:layout_width="@dimen/poster_preview_width"
+        android:layout_height="@dimen/poster_preview_height"
+        android:layout_marginBottom="@dimen/layout_padding"
+        android:src="@drawable/poster_placeholder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/TextEllipsizedHeader3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/text_start_margin"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@id/tv_kp_rating"
+        app:layout_constraintStart_toEndOf="@id/iv_poster"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Одни из нас" />
+
+    <TextView
+        android:id="@+id/tv_orig_name_and_year"
+        style="@style/MainTextOneLineEllipsized"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/text_start_margin"
+        android:layout_marginTop="@dimen/text_top_margin_small"
+        app:layout_constraintEnd_toStartOf="@id/tv_kp_rating"
+        app:layout_constraintStart_toEndOf="@id/iv_poster"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="The Last of Us, 2023 - ..." />
+
+    <TextView
+        android:id="@+id/tv_countries_ang_genres"
+        style="@style/SubTextEllipsized"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/text_start_margin"
+        android:layout_marginTop="@dimen/text_top_margin_regular"
+        app:layout_constraintEnd_toStartOf="@id/tv_kp_rating"
+        app:layout_constraintStart_toEndOf="@id/iv_poster"
+        app:layout_constraintTop_toBottomOf="@id/tv_orig_name_and_year"
+        tools:text="Канада • фантастика, драма" />
+
+    <TextView
+        android:id="@+id/tv_kp_rating"
+        style="@style/TextHeader3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="7.9"
+        tools:textColor="@color/high_rating" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

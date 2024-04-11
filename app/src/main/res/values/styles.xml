@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextHeader">
+        <item name="android:textColor">@color/main_text_color</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextHeader1" parent="TextHeader">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextHeader2" parent="TextHeader">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextHeader3" parent="TextHeader">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextEllipsizedHeader3" parent="TextHeader3">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="MainText">
+        <item name="android:textColor">@color/main_text_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MainTextOneLineEllipsized" parent="MainText">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextLongEllipsizedMain" parent="MainTextOneLineEllipsized">
+        <item name="android:maxLines">5</item>
+    </style>
+
+    <style name="SubText">
+        <item name="android:textColor">@color/sub_text_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SubTextEllipsized" parent="SubText">
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+</resources>
