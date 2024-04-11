@@ -5,7 +5,10 @@ import android.content.Context
 import com.github.lzaytseva.kinopoiskapitest.BuildConfig
 import com.github.lzaytseva.kinopoiskapitest.data.exception.interceptor.ErrorInterceptor
 import com.github.lzaytseva.kinopoiskapitest.data.network.api.KinopoiskApiService
+import com.github.lzaytseva.kinopoiskapitest.data.network.api.SearchMoviesRemoteDataSource
+import com.github.lzaytseva.kinopoiskapitest.data.network.impl.SearchMoviesRemoteDataSourceImpl
 import com.github.lzaytseva.kinopoiskapitest.util.NetworkConnectionChecker
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -16,6 +19,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 interface NetworkModule {
+
+    @[Binds ApplicationScope]
+    fun bindSearchMoviesRemoteDataSource(
+        impl: SearchMoviesRemoteDataSourceImpl
+    ): SearchMoviesRemoteDataSource
 
 
     companion object {
