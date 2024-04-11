@@ -19,8 +19,11 @@ class MoviesSearchByParamsRepositoryImpl @Inject constructor(
 ) : MoviesSearchByParamsRepository {
 
     private var nextPage: Int = 1
+    private var limit: Int? = null
 
     override fun searchMoviesByParams(limit: Int): Flow<Resource<MoviesSearchResult>> {
+        this.limit = limit
+
         return flow {
             try {
                 val response = remoteDataSource.searchMoviesByParams(
@@ -49,5 +52,10 @@ class MoviesSearchByParamsRepositoryImpl @Inject constructor(
                 )
             }
         }
+    }
+
+    override fun loadNextPage(): Flow<Resource<MoviesSearchResult>> {
+        return limit?.let { searchMoviesByParams(it) }
+            ?: throw RuntimeException("loadNextPage call before got first results")
     }
 }

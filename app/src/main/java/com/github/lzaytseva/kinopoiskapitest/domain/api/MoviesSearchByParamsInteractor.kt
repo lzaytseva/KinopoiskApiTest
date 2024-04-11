@@ -5,9 +5,9 @@ import com.github.lzaytseva.kinopoiskapitest.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 
-interface MoviesSearchByParamsRepository {
+interface MoviesSearchByParamsInteractor {
 
-    fun searchMoviesByParams(limit: Int): Flow<Resource<MoviesSearchResult>>
+    fun searchMoviesByParams(limitPerPage: Int = 10): Flow<Resource<MoviesSearchResult>>
 
     fun loadNextPage(): Flow<Resource<MoviesSearchResult>>
 }
