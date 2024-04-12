@@ -4,5 +4,5 @@ data class SimilarMoviesDto(
     val alternativeName: String?,
     val id: Int?,
     val name: String?,
-    val poster: PosterDto?
+    val poster: ImageDto?
 )

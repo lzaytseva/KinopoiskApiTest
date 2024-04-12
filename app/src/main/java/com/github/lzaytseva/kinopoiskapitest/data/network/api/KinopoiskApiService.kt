@@ -1,7 +1,10 @@
 package com.github.lzaytseva.kinopoiskapitest.data.network.api
 
+import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.ImagesResponse
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.MovieDetailsResponse
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.MoviesResponse
+import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.ReviewsResponse
+import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.SeasonsResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -35,12 +38,19 @@ interface KinopoiskApiService {
         @Query("movieId") movieId: String,
         @Query("page") page: Int,
         @Query("limit") limit: Int
-    )
+    ): SeasonsResponse
 
     @GET("/v1.4/image")
     suspend fun getImages(
         @Query("movieId") movieId: String,
         @Query("page") page: Int,
         @Query("limit") limit: Int
-    )
+    ): ImagesResponse
+
+    @GET("v1.4/review")
+    suspend fun getReviews(
+        @Query("movieId") movieId: String,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): ReviewsResponse
 }

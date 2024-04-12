@@ -4,8 +4,10 @@ package com.github.lzaytseva.kinopoiskapitest.di
 import android.content.Context
 import com.github.lzaytseva.kinopoiskapitest.BuildConfig
 import com.github.lzaytseva.kinopoiskapitest.data.exception.interceptor.ErrorInterceptor
+import com.github.lzaytseva.kinopoiskapitest.data.network.api.DetailsRemoteDataSource
 import com.github.lzaytseva.kinopoiskapitest.data.network.api.KinopoiskApiService
 import com.github.lzaytseva.kinopoiskapitest.data.network.api.SearchMoviesRemoteDataSource
+import com.github.lzaytseva.kinopoiskapitest.data.network.impl.DetailsRemoteDataSourceImpl
 import com.github.lzaytseva.kinopoiskapitest.data.network.impl.SearchMoviesRemoteDataSourceImpl
 import com.github.lzaytseva.kinopoiskapitest.util.NetworkConnectionChecker
 import dagger.Binds
@@ -24,6 +26,11 @@ interface NetworkModule {
     fun bindSearchMoviesRemoteDataSource(
         impl: SearchMoviesRemoteDataSourceImpl
     ): SearchMoviesRemoteDataSource
+
+    @[Binds ApplicationScope]
+    fun bindDetailsRemoteDataSource(
+        impl: DetailsRemoteDataSourceImpl
+    ): DetailsRemoteDataSource
 
 
     companion object {

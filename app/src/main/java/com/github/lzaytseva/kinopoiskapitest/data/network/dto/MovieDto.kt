@@ -7,7 +7,7 @@ data class MovieDto(
     val genres: List<GenreDto>?,
     val id: Int,
     val name: String?,
-    val poster: PosterDto?,
+    val poster: ImageDto?,
     val rating: RatingDto?,
     val releaseYears: List<ReleaseYearDto>?,
     val year: Int?

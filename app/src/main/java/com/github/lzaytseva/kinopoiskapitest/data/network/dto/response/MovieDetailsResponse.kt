@@ -3,7 +3,7 @@ package com.github.lzaytseva.kinopoiskapitest.data.network.dto.response
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.CountryDto
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.GenreDto
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.PersonDto
-import com.github.lzaytseva.kinopoiskapitest.data.network.dto.PosterDto
+import com.github.lzaytseva.kinopoiskapitest.data.network.dto.ImageDto
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.RatingDto
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.ReleaseYearDto
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.SeasonsInfoDto
@@ -23,7 +23,7 @@ data class MovieDetailsResponse(
     val movieLength: Int?,
     val name: String?,
     val persons: List<PersonDto>?,
-    val poster: PosterDto?,
+    val poster: ImageDto?,
     val rating: RatingDto?,
     val releaseYears: List<ReleaseYearDto>?,
     val seasonsInfo: List<SeasonsInfoDto>?,
