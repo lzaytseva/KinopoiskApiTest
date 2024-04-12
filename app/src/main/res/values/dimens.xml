@@ -10,4 +10,12 @@
     <dimen name="text_start_margin">8dp</dimen>
     <dimen name="text_top_margin_small">4dp</dimen>
     <dimen name="text_top_margin_regular">8dp</dimen>
+    <!--  movie_details_fragment.xml  -->
+    <dimen name="poster_width">160dp</dimen>
+    <dimen name="poster_height">240dp</dimen>
+    <dimen name="margin_between_details_tv">4dp</dimen>
+    <dimen name="margin_top_medium">16dp</dimen>
+    <dimen name="margin_top_extra_small">4dp</dimen>
+    <dimen name="margin_top_small">8dp</dimen>
+    <dimen name="avatar_size">48dp</dimen>
 </resources>

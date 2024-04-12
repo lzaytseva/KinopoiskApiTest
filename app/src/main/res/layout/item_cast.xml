@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/layout_padding"
+    android:paddingTop="@dimen/layout_padding">
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="@dimen/poster_preview_width"
+        android:layout_height="@dimen/poster_preview_height"
+        android:layout_marginBottom="@dimen/layout_padding"
+        android:src="@drawable/avatar_placeholder_rectangle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/TextEllipsizedHeader3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/text_start_margin"
+        android:paddingEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_role"
+        app:layout_constraintEnd_toEndtOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Педро Паскаль" />
+
+
+    <TextView
+        android:id="@+id/tv_role"
+        style="@style/SubTextEllipsized"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/text_start_margin"
+        android:layout_marginTop="@dimen/text_top_margin_regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndtOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        tools:text="Joel Miller" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

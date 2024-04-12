@@ -23,4 +23,7 @@
     <color name="btn_retry_text_color">@color/white</color>
     <color name="snackbar_bg">@color/black</color>
     <color name="snackbar_text_color">@color/white</color>
+    <color name="avatar_placeholder_bg">@color/light_gray</color>
+    <color name="review_card_background">@color/smoke_white</color>
+    <color name="btn_close_bg">@color/light_gray</color>
 </resources>
