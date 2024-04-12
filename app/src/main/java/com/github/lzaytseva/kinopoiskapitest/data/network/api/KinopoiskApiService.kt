@@ -1,5 +1,6 @@
 package com.github.lzaytseva.kinopoiskapitest.data.network.api
 
+import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.MovieDetailsResponse
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.MoviesResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -27,5 +28,19 @@ interface KinopoiskApiService {
     ): MoviesResponse
 
     @GET("v1.4/movie/{id}")
-    suspend fun getMovieDetails(@Path("id") movieId: Int)
+    suspend fun getMovieDetails(@Path("id") movieId: Int): MovieDetailsResponse
+
+    @GET("/v1.4/season")
+    suspend fun getSeasonsInfo(
+        @Query("movieId") movieId: String,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    )
+
+    @GET("/v1.4/image")
+    suspend fun getImages(
+        @Query("movieId") movieId: String,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    )
 }
