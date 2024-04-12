@@ -42,16 +42,19 @@ class MovieAdapter(
         private fun setRating(rating: Double?) {
             val textColorResId =
                 when (rating) {
-                    null -> R.color.medium_rating
+                    null, 0.0 -> R.color.medium_rating
                     in 0.0..4.9 -> R.color.low_rating
                     in 5.0..6.9 -> R.color.medium_rating
                     in 7.0..10.0 -> R.color.high_rating
                     else -> R.color.medium_rating
                 }
 
-            binding.tvKpRating.text = rating?.let {
+            binding.tvKpRating.text = if (rating == null || rating == 0.0) {
+                "-"
+            } else {
                 String.format(Locale.ENGLISH, "%.1f", rating)
-            } ?: "-"
+            }
+
             binding.tvKpRating.setTextColor(
                 ContextCompat.getColor(itemView.context, textColorResId)
             )

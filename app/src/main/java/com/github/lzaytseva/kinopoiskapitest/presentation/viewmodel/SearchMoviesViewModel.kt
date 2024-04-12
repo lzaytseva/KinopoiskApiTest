@@ -2,13 +2,14 @@ package com.github.lzaytseva.kinopoiskapitest.presentation.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.github.lzaytseva.kinopoiskapitest.data.exception.model.ErrorEntity
-import com.github.lzaytseva.kinopoiskapitest.domain.api.MoviesSearchByParamsInteractor
+import com.github.lzaytseva.kinopoiskapitest.domain.api.SearchMovieInteractor
 import com.github.lzaytseva.kinopoiskapitest.domain.model.Movie
 import com.github.lzaytseva.kinopoiskapitest.domain.model.MoviesSearchResult
 import com.github.lzaytseva.kinopoiskapitest.presentation.state.MoviesSearchScreenState
 import com.github.lzaytseva.kinopoiskapitest.presentation.state.MoviesSearchSideEffect
 import com.github.lzaytseva.kinopoiskapitest.util.BaseViewModel
 import com.github.lzaytseva.kinopoiskapitest.util.Resource
+import com.github.lzaytseva.kinopoiskapitest.util.debounce
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -19,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SearchMoviesViewModel @Inject constructor(
-    private val searchByParamsInteractor: MoviesSearchByParamsInteractor
+    private val searchMovieInteractor: SearchMovieInteractor
 ) : BaseViewModel() {
 
     private val _uiState: MutableStateFlow<MoviesSearchScreenState> =
@@ -30,20 +31,31 @@ class SearchMoviesViewModel @Inject constructor(
         MutableSharedFlow()
     val sideEffects: SharedFlow<MoviesSearchSideEffect> = _sideEffects.asSharedFlow()
 
+    private var searchMode: SearchMode = SearchMode.AllMovies
+
     private var pagesTotal: Int = 0
     private var currentPage: Int = 0
     private var isNextPageLoading = false
     private val movies = mutableListOf<Movie>()
 
+    private var latestSearchText: String? = null
+    private val moviesSearchDebounce =
+        debounce<String>(SEARCH_DEBOUNCE_DELAY_IN_MILLIS, viewModelScope, true) { changedText ->
+            searchRequest(changedText)
+        }
+
     init {
-        loadMovies()
+        loadAllMovies()
     }
 
-    private fun loadMovies() {
+    fun loadAllMovies() {
+        movies.clear()
+        searchMode = SearchMode.AllMovies
+
         viewModelScope.launch {
             _uiState.value = MoviesSearchScreenState.Loading
 
-            searchByParamsInteractor.searchMoviesByParams().collect {
+            searchMovieInteractor.getAllMovies().collect {
                 processResult(resource = it)
             }
         }
@@ -57,7 +69,47 @@ class SearchMoviesViewModel @Inject constructor(
             isNextPageLoading = true
             _uiState.value = MoviesSearchScreenState.LoadingNextPage
 
-            searchByParamsInteractor.loadNextPage().collect {
+            when (searchMode) {
+                SearchMode.AllMovies -> loadAllMoviesNextPage()
+                SearchMode.SearchByParams -> loadSearchByParamsNextPage()
+                SearchMode.SearchByTitle -> loadSearchByTitleNextPage()
+            }
+        }
+    }
+
+    private suspend fun loadAllMoviesNextPage() {
+        searchMovieInteractor.loadAllMoviesNextPage().collect {
+            processResult(resource = it)
+        }
+    }
+
+    private suspend fun loadSearchByTitleNextPage() {
+        searchMovieInteractor.loadSearchByTitleNextPage().collect {
+            processResult(resource = it)
+        }
+    }
+
+    private suspend fun loadSearchByParamsNextPage() {
+        searchMovieInteractor.loadSearchByParamsNextPage().collect {
+            processResult(resource = it)
+        }
+    }
+
+    fun searchMoviesByTitle(changedText: String) {
+        if (latestSearchText != changedText) {
+            latestSearchText = changedText
+            moviesSearchDebounce(changedText)
+        }
+    }
+
+    private fun searchRequest(newSearchText: String) {
+        movies.clear()
+        searchMode = SearchMode.SearchByTitle
+
+        viewModelScope.launch {
+            _uiState.value = MoviesSearchScreenState.Loading
+
+            searchMovieInteractor.searchMoviesByTitle(searchQuery = newSearchText).collect {
                 processResult(resource = it)
             }
         }
@@ -119,5 +171,16 @@ class SearchMoviesViewModel @Inject constructor(
         }
 
         isNextPageLoading = false
+    }
+
+    companion object {
+        private const val SEARCH_DEBOUNCE_DELAY_IN_MILLIS = 1000L
+    }
+
+    sealed interface SearchMode {
+        data object AllMovies : SearchMode
+        data object SearchByTitle : SearchMode
+
+        data object SearchByParams : SearchMode
     }
 }

@@ -1,6 +1,6 @@
 package com.github.lzaytseva.kinopoiskapitest.data.network.dto.request
 
-data class SearchMovieByParamsRequest(
+data class SearchByParamsRequest(
     val year: String? = null,
     val ageRating: String? = null,
     val country: String? = null,

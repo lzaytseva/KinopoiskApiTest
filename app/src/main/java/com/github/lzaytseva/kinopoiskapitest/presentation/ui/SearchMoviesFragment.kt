@@ -1,9 +1,11 @@
 package com.github.lzaytseva.kinopoiskapitest.presentation.ui
 
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -40,6 +42,8 @@ class SearchMoviesFragment :
 
     override fun onConfigureViews() {
         initRecyclerView()
+        setTextWatcher()
+        setupEditorActionListener()
     }
 
     override fun onSubscribe() {
@@ -194,5 +198,27 @@ class SearchMoviesFragment :
                 }
             }
         )
+    }
+
+    private fun setTextWatcher() {
+        binding.etSearch.doAfterTextChanged {
+            search()
+        }
+    }
+
+    private fun setupEditorActionListener() {
+        binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                search()
+            }
+            false
+        }
+    }
+
+    private fun search() {
+        val searchQuery = binding.etSearch.text?.toString().orEmpty()
+        if (searchQuery.isNotEmpty()) {
+            viewModel.searchMoviesByTitle(changedText = searchQuery)
+        }
     }
 }

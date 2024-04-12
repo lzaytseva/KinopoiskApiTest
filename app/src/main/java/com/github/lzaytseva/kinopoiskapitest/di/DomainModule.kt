@@ -1,15 +1,15 @@
 package com.github.lzaytseva.kinopoiskapitest.di
 
-import com.github.lzaytseva.kinopoiskapitest.domain.api.MoviesSearchByParamsInteractor
-import com.github.lzaytseva.kinopoiskapitest.domain.impl.MoviesSearchByParamsInteractorImpl
+import com.github.lzaytseva.kinopoiskapitest.domain.api.SearchMovieInteractor
+import com.github.lzaytseva.kinopoiskapitest.domain.impl.SearchMovieInteractorImpl
 import dagger.Binds
 import dagger.Module
 
 @Module
 interface DomainModule {
 
-    @[Binds ApplicationScope]
-    fun bindMoviesSearchByParamsInteractor(
-        impl: MoviesSearchByParamsInteractorImpl
-    ): MoviesSearchByParamsInteractor
+    @Binds
+    fun bindSearchMovieInteractor(
+        impl: SearchMovieInteractorImpl
+    ): SearchMovieInteractor
 }

@@ -1,7 +1,7 @@
 package com.github.lzaytseva.kinopoiskapitest.data.mapper
 
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.MovieDto
-import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.SearchMoviesByParamsResponse
+import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.MoviesResponse
 import com.github.lzaytseva.kinopoiskapitest.domain.model.Movie
 import com.github.lzaytseva.kinopoiskapitest.domain.model.MoviesSearchResult
 import javax.inject.Inject
@@ -29,7 +29,7 @@ class MovieMapper @Inject constructor() {
         }
     }
 
-    fun searchMovieResponseToMoviesResult(dto: SearchMoviesByParamsResponse): MoviesSearchResult {
+    fun searchMovieResponseToMoviesResult(dto: MoviesResponse): MoviesSearchResult {
         return with(dto) {
             MoviesSearchResult(
                 currentPage = page,

@@ -18,7 +18,7 @@
     <color name="sub_text_color">@color/gray</color>
     <color name="high_rating">@color/green</color>
     <color name="low_rating">@color/red</color>
-    <color name="medium_rating">@color/dark_grey</color>
+    <color name="medium_rating">@color/gray</color>
     <color name="btn_retry_bg">@color/black</color>
     <color name="btn_retry_text_color">@color/white</color>
     <color name="snackbar_bg">@color/black</color>

@@ -1,17 +1,16 @@
 package com.github.lzaytseva.kinopoiskapitest.di
 
 
-import com.github.lzaytseva.kinopoiskapitest.data.repository.MoviesSearchByParamsRepositoryImpl
-import com.github.lzaytseva.kinopoiskapitest.domain.api.MoviesSearchByParamsRepository
+import com.github.lzaytseva.kinopoiskapitest.data.repository.SearchMoviesRepositoryImpl
+import com.github.lzaytseva.kinopoiskapitest.domain.api.SearchMoviesRepository
 import dagger.Binds
 import dagger.Module
 
 
 @Module
 interface RepositoryModule {
-
     @[Binds ApplicationScope]
-    fun bindMoviesSearchByParamsRepository(
-        impl: MoviesSearchByParamsRepositoryImpl
-    ): MoviesSearchByParamsRepository
+    fun bindSearchMoviesRepository(
+        impl: SearchMoviesRepositoryImpl
+    ): SearchMoviesRepository
 }

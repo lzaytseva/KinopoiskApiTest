@@ -1,6 +1,6 @@
 package com.github.lzaytseva.kinopoiskapitest.data.network.api
 
-import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.SearchMoviesByParamsResponse
+import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.MoviesResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -11,14 +11,20 @@ interface KinopoiskApiService {
     @GET("/v1.4/movie")
     suspend fun searchMoviesByParams(
         @QueryMap queryParams: Map<String, String>
-    ): SearchMoviesByParamsResponse
+    ): MoviesResponse
+
+    @GET("/v1.4/movie")
+    suspend fun getAllMovies(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
+    ): MoviesResponse
 
     @GET("/v1.4/movie/search")
     suspend fun searchMoviesByTitle(
         @Query("query") searchQuery: String,
         @Query("page") page: Int,
         @Query("limit") limit: Int
-    )
+    ): MoviesResponse
 
     @GET("v1.4/movie/{id}")
     suspend fun getMovieDetails(@Path("id") movieId: Int)
