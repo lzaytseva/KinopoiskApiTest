@@ -14,17 +14,12 @@ class MovieMapper @Inject constructor() {
                 id = id,
                 origName = alternativeName,
                 ruName = name,
-                posterUrl = poster?.previewUrl,
+                posterUrl = poster?.previewUrl ?: poster?.url,
                 ratingKp = rating?.kp,
-                year = year,
-                genres = genres
-                    ?.take(MAX_GENRES_TO_DISPLAY)
-                    ?.map { it.name }
-                    ?.joinToString(),
-                countries = countries
-                    ?.take(MAX_COUNTRIES_TO_DISPLAY)
-                    ?.map { it.name }
-                    ?.joinToString()
+                year = getYear(),
+                isSeries = isSeries,
+                genres = genresToString(genres, MAX_GENRES_TO_DISPLAY),
+                countries = countriesToString(countries, MAX_COUNTRIES_TO_DISPLAY),
             )
         }
     }
@@ -38,6 +33,16 @@ class MovieMapper @Inject constructor() {
                     mapMovieToDomain(it)
                 }
             )
+        }
+    }
+
+    private fun MovieDto.getYear(): String? {
+        return if (isSeries == true) {
+            releaseYears?.let {
+                releaseYearsToString(it)
+            }
+        } else {
+            year?.toString()
         }
     }
 

@@ -9,6 +9,6 @@ data class MovieDto(
     val name: String?,
     val poster: ImageDto?,
     val rating: RatingDto?,
-    val releaseYears: List<ReleaseYearDto>?,
+    val releaseYears: ReleaseYearDto?,
     val year: Int?
 )

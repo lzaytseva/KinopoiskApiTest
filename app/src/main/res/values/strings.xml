@@ -18,4 +18,25 @@
     <string name="cast_header">Съемочная группа</string>
     <string name="placeholder_no_information">Нет информации</string>
     <string name="seasons_info">Сезоны и серии</string>
+    <plurals name="total_seasons">
+        <item quantity="zero">%d сезонов</item>
+        <item quantity="one">%d сезон</item>
+        <item quantity="two">%d сезона</item>
+        <item quantity="few">%d сезона</item>
+        <item quantity="many">%d сезонов</item>
+        <item quantity="other">%d сезонов</item>
+    </plurals>
+    <plurals name="total_episodes">
+        <item quantity="zero">%d эпизодов</item>
+        <item quantity="one">%d эпизод</item>
+        <item quantity="two">%d эпизода</item>
+        <item quantity="few">%d эпизода</item>
+        <item quantity="many">%d эпизодов</item>
+        <item quantity="other">%d эпизодов</item>
+    </plurals>
+
+    <string name="minutes_count">%1$d мин</string>
+    <string name="hours_count">%1$d ч</string>
+    <string name="hours_minutes">%1$d ч %2$d мин</string>
+
 </resources>
