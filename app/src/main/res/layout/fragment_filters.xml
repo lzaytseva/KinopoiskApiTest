@@ -58,11 +58,11 @@
             android:id="@+id/toggleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:checkedButton="@+id/button1"
+            app:checkedButton="@+id/btn_all"
             app:singleSelection="true">
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/btn_all"
                 style="@style/ToggleBtnStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 android:text="@string/all_types_label" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btn_movies"
                 style="@style/ToggleBtnStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
                 android:text="@string/movie_type_label" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btn_tv_series"
                 style="@style/ToggleBtnStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

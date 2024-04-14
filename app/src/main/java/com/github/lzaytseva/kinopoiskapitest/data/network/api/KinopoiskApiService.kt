@@ -10,13 +10,19 @@ import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.SeasonsRe
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import retrofit2.http.QueryMap
 
 interface KinopoiskApiService {
 
     @GET("/v1.4/movie")
     suspend fun searchMoviesByParams(
-        @QueryMap queryParams: Map<String, String>
+        @Query("page") page: Int,
+        @Query("year") year: String?,
+        @Query("ageRating") ageRating: String?,
+        @Query("country") country: String?,
+        @Query("rating.kp") ratingKp: String?,
+        @Query("type") type: String?,
+        @Query("limit") limit: Int
+
     ): MoviesResponse
 
     @GET("/v1.4/movie")

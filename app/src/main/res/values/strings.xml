@@ -57,6 +57,7 @@
     <string name="series_type_label">Сериалы</string>
     <string name="movie">movie</string>
     <string name="tv_series">tv-series</string>
+    <string name="search_result_label">Результаты поиска</string>
 
     <string-array name="age_rating_values">
         <item>Неважно</item>

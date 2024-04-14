@@ -7,6 +7,7 @@ import com.github.lzaytseva.kinopoiskapitest.data.network.api.SearchMoviesRemote
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.request.GetAllMoviesRequest
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.request.SearchByParamsRequest
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.request.SearchByTitleRequest
+import com.github.lzaytseva.kinopoiskapitest.data.storage.FiltersStorage
 import com.github.lzaytseva.kinopoiskapitest.domain.api.SearchMoviesRepository
 import com.github.lzaytseva.kinopoiskapitest.domain.model.MoviesSearchResult
 import com.github.lzaytseva.kinopoiskapitest.util.Resource
@@ -18,6 +19,7 @@ class SearchMoviesRepositoryImpl @Inject constructor(
     private val remoteDataSource: SearchMoviesRemoteDataSource,
     private val mapper: MovieMapper,
     private val moviesExceptionToErrorEntity: MoviesExceptionToErrorEntityMapper,
+    private val filtersStorage: FiltersStorage
 ) : SearchMoviesRepository {
 
     private var limit: Int? = null
@@ -117,15 +119,17 @@ class SearchMoviesRepositoryImpl @Inject constructor(
 
     override fun searchMoviesByParams(limit: Int, page: Int): Flow<Resource<MoviesSearchResult>> {
         this.limit = null
+        val filters = filtersStorage.get()
 
         return flow {
             try {
                 val response = remoteDataSource.searchMoviesByParams(
-                    // TODO: применить фильтры
                     request = SearchByParamsRequest(
-                        year = null,
-                        ageRating = null,
-                        country = null,
+                        year = filters.year,
+                        ageRating = filters.ageRating,
+                        country = filters.country,
+                        ratingKp = filters.ratingKp,
+                        type = filters.type,
                         page = page,
                         limit = limit
                     )

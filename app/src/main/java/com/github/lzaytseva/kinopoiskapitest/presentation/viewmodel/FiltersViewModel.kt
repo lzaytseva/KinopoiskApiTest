@@ -1,6 +1,5 @@
 package com.github.lzaytseva.kinopoiskapitest.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.github.lzaytseva.kinopoiskapitest.domain.api.FiltersInteractor
 import com.github.lzaytseva.kinopoiskapitest.domain.model.FilterValue
@@ -104,22 +103,20 @@ class FiltersViewModel @Inject constructor(
         when (filterValue.type) {
             FilterValue.FilterType.Country -> {
                 updateFilters(
-                    currentFilters?.copy(country = filterValue.name)
-                        ?: Filters(country = filterValue.name)
+                    currentFilters.copy(country = filterValue.name)
                 )
             }
 
             FilterValue.FilterType.Genre -> {
                 updateFilters(
-                    currentFilters?.copy(genre = filterValue.name)
-                        ?: Filters(genre = filterValue.name)
+                    currentFilters.copy(genre = filterValue.name)
                 )
             }
         }
     }
 
     fun saveDateRange(dateRange: String?) {
-        val newFilters = currentFilters?.copy(year = dateRange) ?: Filters(year = dateRange)
+        val newFilters = currentFilters.copy(year = dateRange)
         updateFilters(newFilters)
     }
 
@@ -130,7 +127,7 @@ class FiltersViewModel @Inject constructor(
     }
 
     fun updateKpRatingRange(range: String) {
-        val newFilters = currentFilters?.copy(ratingKp = range) ?: Filters(ratingKp = range)
+        val newFilters = currentFilters.copy(ratingKp = range)
         updateFilters(newFilters)
     }
 
@@ -140,11 +137,8 @@ class FiltersViewModel @Inject constructor(
         } else {
             rating
         }
-        val newFilters = currentFilters?.copy(
+        val newFilters = currentFilters.copy(
             ageRating = newRating,
-            type = type
-        ) ?: Filters(
-            ratingKp = newRating,
             type = type
         )
         updateFilters(newFilters)

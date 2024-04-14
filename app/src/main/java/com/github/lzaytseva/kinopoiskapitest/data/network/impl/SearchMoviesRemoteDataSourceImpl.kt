@@ -49,7 +49,13 @@ class SearchMoviesRemoteDataSourceImpl @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 apiService.searchMoviesByParams(
-                    queryParams = request.toQueryMap()
+                    page = request.page,
+                    year = request.year,
+                    ageRating = request.ageRating,
+                    country = request.country,
+                    ratingKp = request.ratingKp,
+                    type = request.type,
+                    limit = request.limit
                 )
             } catch (exception: NetworkException) {
                 throw networkExceptionToMoviesExceptionMapper.handleException(exception)
@@ -57,19 +63,4 @@ class SearchMoviesRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    private fun SearchByParamsRequest.toQueryMap(): Map<String, String> = buildMap {
-        put(PAGE, page.toString())
-        put(LIMIT, limit.toString())
-        year?.also { put(YEAR, it) }
-        ageRating?.also { put(AGE_RATING, it) }
-        country?.also { put(COUNTRY_NAME, it) }
-    }
-
-    private companion object {
-        const val PAGE = "page"
-        const val LIMIT = "limit"
-        const val YEAR = "year"
-        const val AGE_RATING = "ageRating"
-        const val COUNTRY_NAME = "countries.name"
-    }
 }

@@ -18,10 +18,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.lzaytseva.kinopoiskapitest.R
 import com.github.lzaytseva.kinopoiskapitest.app.App
 import com.github.lzaytseva.kinopoiskapitest.databinding.FragmentSearchMoviesBinding
-import com.github.lzaytseva.kinopoiskapitest.domain.model.Movie
 import com.github.lzaytseva.kinopoiskapitest.presentation.state.MoviesSearchScreenState
 import com.github.lzaytseva.kinopoiskapitest.presentation.state.MoviesSearchSideEffect
 import com.github.lzaytseva.kinopoiskapitest.presentation.ui.adapter.MovieAdapter
+import com.github.lzaytseva.kinopoiskapitest.presentation.viewmodel.SearchMode
 import com.github.lzaytseva.kinopoiskapitest.presentation.viewmodel.SearchMoviesViewModel
 import com.github.lzaytseva.kinopoiskapitest.util.BaseFragment
 import com.google.android.material.snackbar.Snackbar
@@ -50,13 +50,13 @@ class SearchMoviesFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isFiltersApplied = requireArguments().getBoolean(ARG_FILTERS_APPLIED)
+        isFiltersApplied = arguments?.getBoolean(ARG_FILTERS_APPLIED) ?: false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (isFiltersApplied) {
-
+            viewModel.loadSearchMoviesByParams()
         } else {
             viewModel.loadAllMovies()
         }
@@ -90,7 +90,7 @@ class SearchMoviesFragment :
         when (state) {
             MoviesSearchScreenState.Loading -> showLoading()
 
-            is MoviesSearchScreenState.Content -> showContent(state.movies)
+            is MoviesSearchScreenState.Content -> showContent(state)
 
             is MoviesSearchScreenState.Error.NoInternet -> showNoInternet()
 
@@ -118,9 +118,15 @@ class SearchMoviesFragment :
         showViews(progressBarVisible = true)
     }
 
-    private fun showContent(movies: List<Movie>) {
+    private fun showContent(state: MoviesSearchScreenState.Content) {
         showViews(rvVisible = true)
-        adapter.submitList(movies)
+        adapter.submitList(state.movies)
+        when (state.searchMode) {
+            SearchMode.AllMovies -> binding.allMoviesLabel.text =
+                getString(R.string.all_movies_label)
+
+            else -> binding.allMoviesLabel.text = getString(R.string.search_result_label)
+        }
     }
 
     private fun showEmptyResult() {

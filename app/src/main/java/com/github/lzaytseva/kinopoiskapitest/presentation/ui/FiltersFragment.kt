@@ -101,9 +101,9 @@ class FiltersFragment :
         } ?: listOf(0.0f, 10.0f)
         binding.tvYear.text = filters.year ?: getString(R.string.any_m)
         when (filters.type) {
-            getString(R.string.movie) -> binding.toggleButton.check(R.id.button2)
-            getString(R.string.tv_series) -> binding.toggleButton.check(R.id.button3)
-            else -> binding.toggleButton.check(R.id.button1)
+            getString(R.string.movie) -> binding.toggleButton.check(R.id.btn_movies)
+            getString(R.string.tv_series) -> binding.toggleButton.check(R.id.btn_tv_series)
+            else -> binding.toggleButton.check(R.id.btn_all)
         }
     }
 
@@ -179,9 +179,9 @@ class FiltersFragment :
     private fun setOnShowButtonClickListener() {
         binding.btnShow.setOnClickListener {
             val type = when (binding.toggleButton.checkedButtonId) {
-                0 -> null
-                1 -> "movie"
-                2 -> "tv-series"
+                R.id.btn_all -> null
+                R.id.btn_movies -> "movie"
+                R.id.btn_tv_series -> "tv-series"
                 else -> null
             }
             viewModel.updateAgeRatingAndType(

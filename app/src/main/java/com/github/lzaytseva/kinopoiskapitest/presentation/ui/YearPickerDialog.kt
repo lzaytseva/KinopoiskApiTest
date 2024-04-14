@@ -53,17 +53,22 @@ class YearPickerDialog(
             val start = displayedValuesFrom[pickerFrom.value]
             val end = displayedValuesTo[pickerTo.value]
             val range = when {
-                start == "c" && end == "по" -> {
+                start == "с" && end == "по" -> {
                     null
                 }
+
                 start == "с" -> {
                     "$MIN_YEAR-${end.toInt()}"
                 }
+
                 end == "по" -> {
                     "$start-$maxYear"
                 }
+
                 else -> {
-                    "${start.toInt().coerceAtMost(end.toInt())}-${start.toInt().coerceAtLeast(end.toInt())}"
+                    "${start.toInt().coerceAtMost(end.toInt())}-${
+                        start.toInt().coerceAtLeast(end.toInt())
+                    }"
                 }
             }
             onYearChosen.invoke(range)

@@ -94,6 +94,19 @@ class SearchMoviesViewModel @Inject constructor(
         }
     }
 
+    fun loadSearchMoviesByParams() {
+        movies.clear()
+        searchMode = SearchMode.SearchByParams
+
+        viewModelScope.launch {
+            _uiState.value = MoviesSearchScreenState.Loading
+
+            searchMovieInteractor.searchMoviesByParams().collect {
+                processResult(resource = it)
+            }
+        }
+    }
+
     private suspend fun loadSearchByParamsNextPage() {
         searchMovieInteractor.loadSearchByParamsNextPage().collect {
             processResult(resource = it)
@@ -172,7 +185,8 @@ class SearchMoviesViewModel @Inject constructor(
             MoviesSearchScreenState.EmptyResult
         } else {
             MoviesSearchScreenState.Content(
-                movies = movies.toList()
+                movies = movies.toList(),
+                searchMode
             )
         }
 
@@ -181,12 +195,5 @@ class SearchMoviesViewModel @Inject constructor(
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY_IN_MILLIS = 1000L
-    }
-
-    sealed interface SearchMode {
-        data object AllMovies : SearchMode
-        data object SearchByTitle : SearchMode
-
-        data object SearchByParams : SearchMode
     }
 }
