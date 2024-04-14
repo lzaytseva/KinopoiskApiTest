@@ -202,6 +202,7 @@ class SearchMoviesFragment :
         errorLayoutVisible: Boolean = false
     ) {
         binding.rvMovies.isVisible = rvVisible
+        binding.allMoviesLabel.isVisible = rvVisible
         binding.progressBar.isVisible = progressBarVisible
         binding.errorLayout.isVisible = errorLayoutVisible
     }

@@ -1,6 +1,7 @@
 package com.github.lzaytseva.kinopoiskapitest.presentation.ui
 
 import android.os.Bundle
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -16,6 +17,7 @@ import com.github.lzaytseva.kinopoiskapitest.R
 import com.github.lzaytseva.kinopoiskapitest.app.App
 import com.github.lzaytseva.kinopoiskapitest.databinding.FragmentMovieDetailsBinding
 import com.github.lzaytseva.kinopoiskapitest.domain.model.MovieDetails
+import com.github.lzaytseva.kinopoiskapitest.domain.model.Review
 import com.github.lzaytseva.kinopoiskapitest.presentation.state.MovieDetailsScreenState
 import com.github.lzaytseva.kinopoiskapitest.presentation.ui.adapter.ActorAdapter
 import com.github.lzaytseva.kinopoiskapitest.presentation.ui.adapter.CrewMemberAdapter
@@ -24,6 +26,7 @@ import com.github.lzaytseva.kinopoiskapitest.presentation.ui.adapter.ReviewAdapt
 import com.github.lzaytseva.kinopoiskapitest.presentation.viewmodel.MovieDetailsViewModel
 import com.github.lzaytseva.kinopoiskapitest.util.BaseFragment
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -46,9 +49,11 @@ class MovieDetailsFragment :
     private val actorsAdapter = ActorAdapter()
     private val crewAdapter = CrewMemberAdapter()
     private val reviewAdapter = ReviewAdapter {
-        // TODO
+        showBottomSheet(it)
     }
     private val imageAdapter = ImageAdapter()
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
 
     private lateinit var toolbar: MaterialToolbar
@@ -66,6 +71,8 @@ class MovieDetailsFragment :
         configureToolbar()
         initRecyclerViews()
         setDescriptionBtnsClickListener()
+        initBottomSheet()
+        setOnCloseReviewClickListener()
     }
 
     override fun onSubscribe() {
@@ -284,6 +291,38 @@ class MovieDetailsFragment :
             binding.tvDescription.maxLines = DESCRIPTION_LINES
             binding.tvShowMore.isVisible = true
             binding.tvShowLess.isVisible = false
+        }
+    }
+
+    private fun initBottomSheet() {
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.reviewBottomSheet).apply {
+            state = BottomSheetBehavior.STATE_HIDDEN
+        }
+    }
+
+    private fun showBottomSheet(review: Review) {
+        binding.tvTitle.isVisible = !review.title.isNullOrBlank()
+        binding.tvTitle.text = review.title
+        binding.tvAuthorName.text = review.author
+        binding.tvReview.text = review.review
+        binding.tvPublicationDate.text = review.date
+        setType(review.type)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    private fun setType(type: String?) {
+        val colorResId = when (type) {
+            null -> R.color.review_card_background
+            "Позитивный" -> R.color.high_rating
+            "Негативный" -> R.color.low_rating
+            else -> R.color.medium_rating
+        }
+        binding.reviewType.background = ContextCompat.getDrawable(requireContext(), colorResId)
+    }
+
+    private fun setOnCloseReviewClickListener() {
+        binding.btnClose.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
     }
 
