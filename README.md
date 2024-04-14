@@ -8,7 +8,7 @@
 - Kotlin
 - Retrofit
 - Kotlin coroutines
-- Koin
+- Dagger
 - ViewBinding
 - RecyclerView, DiffUtil
 - Clean Architecture (MVVM)
