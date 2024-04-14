@@ -59,7 +59,7 @@ class DetailsMapper @Inject constructor(private val context: Context) {
 
     private fun getCast(people: List<PersonDto>): List<CrewMember> {
         return people.filterNot {
-            it.profession.equals("актеры") && it.name.isNullOrBlank()
+            it.profession.equals("актеры") || it.name.isNullOrBlank()
         }.map {
             CrewMember(
                 name = it.name,
