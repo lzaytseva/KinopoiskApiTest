@@ -256,7 +256,7 @@ class MovieDetailsFragment :
         binding.rvActors.adapter = actorsAdapter
         binding.rvActors.layoutManager = GridLayoutManager(
             requireContext(),
-            3,
+            2,
             GridLayoutManager.HORIZONTAL,
             false
         )
