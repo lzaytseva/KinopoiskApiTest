@@ -204,14 +204,20 @@ class MovieDetailsFragment :
 
         }
 
-        if (details.seasonsInfo.isNullOrBlank()) {
-            binding.seasonsInfo.isVisible = true
+        if (details.isSeries == true) {
+            if (details.seasonsInfo.isNullOrBlank()) {
+                binding.seasonsInfo.isVisible = true
+                binding.tvSeasonsInfo.isVisible = false
+                binding.tvSeasonsNoInformation.isVisible = true
+            } else {
+                binding.seasonsInfo.isVisible = true
+                binding.tvSeasonsInfo.isVisible = true
+                binding.tvSeasonsInfo.text = details.seasonsInfo
+            }
+        } else {
+            binding.seasonsInfo.isVisible = false
             binding.tvSeasonsInfo.isVisible = false
             binding.tvSeasonsNoInformation.isVisible = true
-        } else {
-            binding.seasonsInfo.isVisible = true
-            binding.tvSeasonsInfo.isVisible = true
-            binding.tvSeasonsInfo.text = details.seasonsInfo
         }
 
         if (details.images.isNullOrEmpty()) {

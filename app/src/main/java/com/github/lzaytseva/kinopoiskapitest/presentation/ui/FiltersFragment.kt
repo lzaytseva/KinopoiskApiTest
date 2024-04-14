@@ -56,6 +56,7 @@ class FiltersFragment :
         setOnKpRatingRangeChanged()
         setOnShowButtonClickListener()
         setOnResetBtnClickListener()
+        onToggleButtonClickListener()
     }
 
     override fun onSubscribe() {
@@ -105,7 +106,13 @@ class FiltersFragment :
             )
         } ?: listOf(0.0f, 10.0f)
         binding.tvYear.text = filters.year ?: getString(R.string.any_m)
-        when (filters.type) {
+        initToggleButton(filters.type)
+
+    }
+
+    private fun initToggleButton(type: String?) {
+        binding.toggleButton.clearChecked()
+        when (type) {
             getString(R.string.movie) -> binding.toggleButton.check(R.id.btn_movies)
             getString(R.string.tv_series) -> binding.toggleButton.check(R.id.btn_tv_series)
             else -> binding.toggleButton.check(R.id.btn_all)
@@ -209,15 +216,9 @@ class FiltersFragment :
 
     private fun setOnShowButtonClickListener() {
         binding.btnShow.setOnClickListener {
-            val type = when (binding.toggleButton.checkedButtonId) {
-                R.id.btn_all -> null
-                R.id.btn_movies -> "movie"
-                R.id.btn_tv_series -> "tv-series"
-                else -> null
-            }
-            viewModel.updateAgeRatingAndType(
-                rating = binding.spinnerAgeRating.selectedItem.toString(),
-                type = type
+
+            viewModel.updateAgeRating(
+                rating = binding.spinnerAgeRating.selectedItem.toString()
             )
 
             findNavController().navigate(
@@ -227,7 +228,20 @@ class FiltersFragment :
         }
     }
 
+    private fun onToggleButtonClickListener() {
+        binding.toggleButton.addOnButtonCheckedListener { materialButtonToggleGroup, i, b ->
+            val type = when (materialButtonToggleGroup.checkedButtonId) {
+                R.id.btn_all -> null
+                R.id.btn_movies -> "movie"
+                R.id.btn_tv_series -> "tv-series"
+                else -> null
+            }
+            viewModel.updateType(type)
+        }
+    }
+
     private fun setOnResetBtnClickListener() {
+        binding.toggleButton.check(R.id.btn_all)
         binding.btnReset.setOnClickListener {
             viewModel.clearFilters()
         }

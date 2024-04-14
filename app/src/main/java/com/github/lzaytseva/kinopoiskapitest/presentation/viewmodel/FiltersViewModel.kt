@@ -131,15 +131,21 @@ class FiltersViewModel @Inject constructor(
         updateFilters(newFilters)
     }
 
-    fun updateAgeRatingAndType(rating: String, type: String?) {
+    fun updateAgeRating(rating: String) {
         val newRating = if (rating == "Неважно") {
             null
         } else {
             rating
         }
         val newFilters = currentFilters.copy(
-            ageRating = newRating,
-            type = type
+            ageRating = newRating
+        )
+        updateFilters(newFilters)
+    }
+
+    fun updateType(type: String?) {
+        val newFilters = currentFilters.copy(
+            ageRating = type
         )
         updateFilters(newFilters)
     }

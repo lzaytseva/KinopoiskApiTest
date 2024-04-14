@@ -58,7 +58,6 @@
             android:id="@+id/toggleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:checkedButton="@+id/btn_all"
             app:singleSelection="true">
 
             <Button
