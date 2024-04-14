@@ -33,7 +33,7 @@ class MovieDetailsRepositoryImpl @Inject constructor(
     Dispatchers.IO +
             SupervisorJob()
 ) {
-    override suspend fun getMovieDetails(movieId: Int): Flow<Resource<MovieDetails>> {
+    override fun getMovieDetails(movieId: Int): Flow<Resource<MovieDetails>> {
         return flow {
             // Сначала получаем описание фильма и съемочную группу
             val response = try {
@@ -106,7 +106,7 @@ class MovieDetailsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getSeasonsInfo(
+    override fun getSeasonsInfo(
         movieId: String,
         page: Int,
         limit: Int
@@ -116,7 +116,7 @@ class MovieDetailsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getImages(
+    override fun getImages(
         movieId: String,
         page: Int,
         limit: Int
@@ -126,7 +126,7 @@ class MovieDetailsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getReviews(
+    override fun getReviews(
         movieId: String,
         page: Int,
         limit: Int

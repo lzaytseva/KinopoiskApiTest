@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieDetailsInteractor {
 
-    suspend fun getMovieDetails(
+    fun getMovieDetails(
         movieId: Int
     ): Flow<Resource<MovieDetails>>
 

@@ -9,21 +9,21 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieDetailsRepository {
 
-    suspend fun getMovieDetails(movieId: Int): Flow<Resource<MovieDetails>>
+    fun getMovieDetails(movieId: Int): Flow<Resource<MovieDetails>>
 
-    suspend fun getSeasonsInfo(
+    fun getSeasonsInfo(
         movieId: String,
         page: Int,
         limit: Int
     ): Flow<Resource<SeasonsResult>>
 
-    suspend fun getImages(
+    fun getImages(
         movieId: String,
         page: Int,
         limit: Int
     ): Flow<Resource<ImagesResult>>
 
-    suspend fun getReviews(
+    fun getReviews(
         movieId: String,
         page: Int,
         limit: Int

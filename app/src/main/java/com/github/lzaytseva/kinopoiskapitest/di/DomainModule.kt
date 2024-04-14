@@ -1,7 +1,9 @@
 package com.github.lzaytseva.kinopoiskapitest.di
 
+import com.github.lzaytseva.kinopoiskapitest.domain.api.FiltersInteractor
 import com.github.lzaytseva.kinopoiskapitest.domain.api.MovieDetailsInteractor
 import com.github.lzaytseva.kinopoiskapitest.domain.api.SearchMovieInteractor
+import com.github.lzaytseva.kinopoiskapitest.domain.impl.FiltersInteractorImpl
 import com.github.lzaytseva.kinopoiskapitest.domain.impl.MovieDetailsInteractorImpl
 import com.github.lzaytseva.kinopoiskapitest.domain.impl.SearchMovieInteractorImpl
 import dagger.Binds
@@ -19,4 +21,9 @@ interface DomainModule {
     fun bindMovieDetailsInteractor(
         impl: MovieDetailsInteractorImpl
     ): MovieDetailsInteractor
+
+    @Binds
+    fun bindFiltersInteractor(
+        impl: FiltersInteractorImpl
+    ): FiltersInteractor
 }

@@ -10,7 +10,7 @@ import javax.inject.Inject
 class MovieDetailsInteractorImpl @Inject constructor(
     private val repository: MovieDetailsRepository
 ) : MovieDetailsInteractor {
-    override suspend fun getMovieDetails(movieId: Int): Flow<Resource<MovieDetails>> {
+    override fun getMovieDetails(movieId: Int): Flow<Resource<MovieDetails>> {
         return repository.getMovieDetails(movieId)
     }
 }

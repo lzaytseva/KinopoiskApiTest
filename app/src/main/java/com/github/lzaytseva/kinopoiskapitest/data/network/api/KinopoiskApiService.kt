@@ -1,5 +1,7 @@
 package com.github.lzaytseva.kinopoiskapitest.data.network.api
 
+import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.CountriesResponse
+import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.GenresResponse
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.ImagesResponse
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.MovieDetailsResponse
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.MoviesResponse
@@ -53,4 +55,10 @@ interface KinopoiskApiService {
         @Query("page") page: Int,
         @Query("limit") limit: Int
     ): ReviewsResponse
+
+    @GET("/v1/movie/possible-values-by-field?field=countries.name")
+    suspend fun getCountries(): CountriesResponse
+
+    @GET("/v1/movie/possible-values-by-field?field=genres.name")
+    suspend fun getGenres(): GenresResponse
 }

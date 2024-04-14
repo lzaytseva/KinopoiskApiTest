@@ -41,4 +41,30 @@
     <string name="string_with_comma">%1$s, </string>
     <string name="hide">Скрыть</string>
     <string name="placeholder_no_reviews">Нет отзывов</string>
+    <string name="filters_header">Поиск лучших фильмов</string>
+    <string name="reset">Сбросить</string>
+    <string name="all_types_label">Все</string>
+    <string name="movie_type_label">Фильмы</string>
+    <string name="genre_label">Жанр</string>
+    <string name="any_m">Любой</string>
+    <string name="year_label">Год</string>
+    <string name="rating_label">Рейтинг</string>
+    <string name="label_doesnt_matter">Неважно</string>
+    <string name="any_f">Любая</string>
+    <string name="label_age_rating">Возрастной рейтинг</string>
+    <string name="show">Показать</string>
+    <string name="types_label">Показывать</string>
+    <string name="series_type_label">Сериалы</string>
+    <string name="movie">movie</string>
+    <string name="tv_series">tv-series</string>
+
+    <string-array name="age_rating_values">
+        <item>Неважно</item>
+        <item>0+</item>
+        <item>6+</item>
+        <item>12+</item>
+        <item>16+</item>
+        <item>18+</item>
+    </string-array>
+
 </resources>

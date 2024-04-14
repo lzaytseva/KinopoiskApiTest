@@ -24,7 +24,11 @@
         tools:layout="@layout/fragment_movie_details" />
     <fragment
         android:id="@+id/fragmentFilters"
-        android:name="com.github.lzaytseva.kinopoiskapitest.presentation.ui.FragmentFilters"
+        android:name="com.github.lzaytseva.kinopoiskapitest.presentation.ui.FiltersFragment"
         android:label="FragmentFilters"
-        tools:layout="@layout/fragment_filters" />
+        tools:layout="@layout/fragment_filters" >
+        <action
+            android:id="@+id/action_fragmentFilters_to_searchMoviesFragment"
+            app:destination="@id/searchMoviesFragment" />
+    </fragment>
 </navigation>

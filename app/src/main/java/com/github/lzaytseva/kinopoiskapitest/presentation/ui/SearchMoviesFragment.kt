@@ -1,9 +1,11 @@
 package com.github.lzaytseva.kinopoiskapitest.presentation.ui
 
+import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -44,10 +46,27 @@ class SearchMoviesFragment :
         )
     }
 
+    private var isFiltersApplied = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isFiltersApplied = requireArguments().getBoolean(ARG_FILTERS_APPLIED)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (isFiltersApplied) {
+
+        } else {
+            viewModel.loadAllMovies()
+        }
+    }
+
     override fun onConfigureViews() {
         initRecyclerView()
         setTextWatcher()
         setupEditorActionListener()
+        setEndIconClickListener()
     }
 
     override fun onSubscribe() {
@@ -206,6 +225,7 @@ class SearchMoviesFragment :
 
     private fun setTextWatcher() {
         binding.etSearch.doAfterTextChanged {
+            setEndIconClickListener()
             search()
         }
     }
@@ -213,6 +233,7 @@ class SearchMoviesFragment :
     private fun setupEditorActionListener() {
         binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+                setEndIconClickListener()
                 search()
             }
             false
@@ -221,8 +242,43 @@ class SearchMoviesFragment :
 
     private fun search() {
         val searchQuery = binding.etSearch.text?.toString().orEmpty()
-        if (searchQuery.isNotEmpty()) {
-            viewModel.searchMoviesByTitle(changedText = searchQuery)
+        viewModel.searchMoviesByTitle(changedText = searchQuery)
+
+    }
+
+    private fun setEndIconClickListener() {
+        val isTextFieldEmpty = binding.etSearch.text.isNullOrBlank()
+        binding.tilSearch.endIconDrawable = ContextCompat.getDrawable(
+            requireContext(),
+            getEndIconId(isTextFieldEmpty)
+        )
+
+        if (!isTextFieldEmpty) {
+            binding.tilSearch.setEndIconOnClickListener {
+                binding.etSearch.text?.clear()
+            }
+        } else {
+            binding.tilSearch.setEndIconOnClickListener {
+                findNavController().navigate(R.id.action_searchMoviesFragment_to_fragmentFilters)
+            }
+        }
+    }
+
+    private fun getEndIconId(isTextFieldEmpty: Boolean): Int {
+        return if (isTextFieldEmpty) {
+            R.drawable.ic_filters
+        } else {
+            R.drawable.ic_close
+        }
+    }
+
+    companion object {
+        private const val ARG_FILTERS_APPLIED = "filters_applied_key"
+
+        fun createArgs(applied: Boolean): Bundle {
+            return bundleOf(
+                ARG_FILTERS_APPLIED to applied
+            )
         }
     }
 }

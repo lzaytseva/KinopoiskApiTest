@@ -2,6 +2,7 @@ package com.github.lzaytseva.kinopoiskapitest.presentation.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.github.lzaytseva.kinopoiskapitest.data.exception.model.ErrorEntity
+import com.github.lzaytseva.kinopoiskapitest.domain.api.FiltersInteractor
 import com.github.lzaytseva.kinopoiskapitest.domain.api.SearchMovieInteractor
 import com.github.lzaytseva.kinopoiskapitest.domain.model.Movie
 import com.github.lzaytseva.kinopoiskapitest.domain.model.MoviesSearchResult
@@ -10,6 +11,7 @@ import com.github.lzaytseva.kinopoiskapitest.presentation.state.MoviesSearchSide
 import com.github.lzaytseva.kinopoiskapitest.util.BaseViewModel
 import com.github.lzaytseva.kinopoiskapitest.util.Resource
 import com.github.lzaytseva.kinopoiskapitest.util.debounce
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -20,7 +22,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SearchMoviesViewModel @Inject constructor(
-    private val searchMovieInteractor: SearchMovieInteractor
+    private val searchMovieInteractor: SearchMovieInteractor,
+    private val filtersInteractor: FiltersInteractor
 ) : BaseViewModel() {
 
     private val _uiState: MutableStateFlow<MoviesSearchScreenState> =
@@ -45,7 +48,9 @@ class SearchMoviesViewModel @Inject constructor(
         }
 
     init {
-        loadAllMovies()
+        viewModelScope.launch(Dispatchers.IO) {
+            filtersInteractor.preloadValues()
+        }
     }
 
     fun loadAllMovies() {
@@ -103,6 +108,7 @@ class SearchMoviesViewModel @Inject constructor(
     }
 
     private fun searchRequest(newSearchText: String) {
+        if (newSearchText.isBlank()) return
         movies.clear()
         searchMode = SearchMode.SearchByTitle
 
