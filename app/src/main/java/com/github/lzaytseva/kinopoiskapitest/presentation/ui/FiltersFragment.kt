@@ -1,6 +1,9 @@
 package com.github.lzaytseva.kinopoiskapitest.presentation.ui
 
+import android.view.View
+import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -10,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.lzaytseva.kinopoiskapitest.R
 import com.github.lzaytseva.kinopoiskapitest.app.App
+import com.github.lzaytseva.kinopoiskapitest.data.exception.model.ErrorEntity
 import com.github.lzaytseva.kinopoiskapitest.databinding.FragmentFiltersBinding
 import com.github.lzaytseva.kinopoiskapitest.domain.model.Filters
 import com.github.lzaytseva.kinopoiskapitest.presentation.state.FiltersScreenSideEffect
@@ -18,6 +22,7 @@ import com.github.lzaytseva.kinopoiskapitest.presentation.ui.adapter.FilterValue
 import com.github.lzaytseva.kinopoiskapitest.presentation.viewmodel.FiltersViewModel
 import com.github.lzaytseva.kinopoiskapitest.util.BaseFragment
 import com.google.android.material.slider.RangeSlider
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 class FiltersFragment :
@@ -117,13 +122,39 @@ class FiltersFragment :
     private fun handleSideEffect(sideEffect: FiltersScreenSideEffect) {
         when (sideEffect) {
             is FiltersScreenSideEffect.FailedLoadingValues -> {
-                // Показываем сообщение
+                val message = when (sideEffect.error) {
+                    ErrorEntity.NoInternet -> getString(R.string.no_internet_error)
+                    ErrorEntity.ServerError -> getString(R.string.server_error)
+                    is ErrorEntity.UndefinedError -> getString(R.string.undefined_error)
+                }
+                showSnackbar(message)
             }
 
             FiltersScreenSideEffect.NavigateToSearchScreen -> {
                 findNavController().popBackStack()
             }
         }
+    }
+
+    private fun showSnackbar(text: String) {
+        val snackbar =
+            Snackbar.make(requireView(), text, Snackbar.LENGTH_SHORT)
+        snackbar.setBackgroundTint(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.snackbar_bg
+            )
+        )
+        snackbar.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.snackbar_text_color
+            )
+        )
+        val textView =
+            snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
+        snackbar.show()
     }
 
     private fun initFilterValuesRV() {

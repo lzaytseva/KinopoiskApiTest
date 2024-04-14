@@ -5,15 +5,11 @@ import com.github.lzaytseva.kinopoiskapitest.R
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.PersonDto
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.ReviewDto
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.SeasonsInfoDto
-import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.ImagesResponse
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.MovieDetailsResponse
-import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.ReviewsResponse
 import com.github.lzaytseva.kinopoiskapitest.domain.model.Actor
 import com.github.lzaytseva.kinopoiskapitest.domain.model.CrewMember
-import com.github.lzaytseva.kinopoiskapitest.domain.model.ImagesResult
 import com.github.lzaytseva.kinopoiskapitest.domain.model.MovieDetails
 import com.github.lzaytseva.kinopoiskapitest.domain.model.Review
-import com.github.lzaytseva.kinopoiskapitest.domain.model.ReviewsResult
 import javax.inject.Inject
 
 class DetailsMapper @Inject constructor(private val context: Context) {
@@ -110,39 +106,6 @@ class DetailsMapper @Inject constructor(private val context: Context) {
             context.getString(R.string.hours_minutes, hours, minutes)
         }
 
-    }
-
-    fun mapImagesResponseToImagesResult(response: ImagesResponse): ImagesResult? {
-        return if (response.images.isEmpty()) {
-            null
-        } else {
-            ImagesResult(
-                imagesUrls = response.images.map { it.previewUrl.orEmpty() },
-                currentPage = response.page,
-                pages = response.pages
-            )
-        }
-    }
-
-    fun mapReviewsResponseToReviewsResult(response: ReviewsResponse): ReviewsResult? {
-        return if (response.reviews.isEmpty()) {
-            null
-        } else {
-            ReviewsResult(
-                reviews = response.reviews.map {
-                    Review(
-                        author = it.author,
-                        date = it.date,
-                        id = it.id,
-                        review = it.review,
-                        title = it.title,
-                        type = it.type
-                    )
-                },
-                currentPage = response.page,
-                pages = response.pages
-            )
-        }
     }
 
     fun mapReviewsToDomain(dto: List<ReviewDto>): List<Review>? {

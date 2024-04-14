@@ -10,10 +10,7 @@ import com.github.lzaytseva.kinopoiskapitest.data.network.dto.request.GetReviews
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.ImagesResponse
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.response.ReviewsResponse
 import com.github.lzaytseva.kinopoiskapitest.domain.api.MovieDetailsRepository
-import com.github.lzaytseva.kinopoiskapitest.domain.model.ImagesResult
 import com.github.lzaytseva.kinopoiskapitest.domain.model.MovieDetails
-import com.github.lzaytseva.kinopoiskapitest.domain.model.ReviewsResult
-import com.github.lzaytseva.kinopoiskapitest.domain.model.SeasonsResult
 import com.github.lzaytseva.kinopoiskapitest.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -98,36 +95,6 @@ class MovieDetailsRepositoryImpl @Inject constructor(
             } catch (e: MoviesException) {
                 null
             }
-        }
-    }
-
-    override fun getSeasonsInfo(
-        movieId: String,
-        page: Int,
-        limit: Int
-    ): Flow<Resource<SeasonsResult>> {
-        return flow {
-
-        }
-    }
-
-    override fun getImages(
-        movieId: String,
-        page: Int,
-        limit: Int
-    ): Flow<Resource<ImagesResult>> {
-        return flow {
-
-        }
-    }
-
-    override fun getReviews(
-        movieId: String,
-        page: Int,
-        limit: Int
-    ): Flow<Resource<ReviewsResult>> {
-        return flow {
-
         }
     }
 }

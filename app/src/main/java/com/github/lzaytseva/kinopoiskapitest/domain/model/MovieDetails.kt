@@ -5,7 +5,6 @@ data class MovieDetails(
     val origName: String?,
     val countries: String?,
     val description: String?,
-    val facts: List<Fact>? = null,
     val genres: String?,
     val isSeries: Boolean?,
     val duration: String?,

@@ -7,7 +7,6 @@ import com.github.lzaytseva.kinopoiskapitest.data.network.dto.PersonDto
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.RatingDto
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.ReleaseYearDto
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.SeasonsInfoDto
-import com.github.lzaytseva.kinopoiskapitest.data.network.dto.SimilarMoviesDto
 import com.github.lzaytseva.kinopoiskapitest.data.network.dto.request.FactDto
 
 data class MovieDetailsResponse(
@@ -27,6 +26,5 @@ data class MovieDetailsResponse(
     val releaseYears: List<ReleaseYearDto>?,
     val seasonsInfo: List<SeasonsInfoDto>?,
     val seriesLength: Int?,
-    val similarMovies: List<SimilarMoviesDto>?,
     val year: Int?
 )
