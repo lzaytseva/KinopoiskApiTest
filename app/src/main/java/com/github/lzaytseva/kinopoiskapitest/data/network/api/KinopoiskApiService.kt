@@ -17,7 +17,7 @@ interface KinopoiskApiService {
         @Query("page") page: Int,
         @Query("year") year: String?,
         @Query("ageRating") ageRating: String?,
-        @Query("country") country: String?,
+        @Query("countries.name") country: String?,
         @Query("rating.kp") ratingKp: String?,
         @Query("type") type: String?,
         @Query("limit") limit: Int

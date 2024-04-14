@@ -57,9 +57,10 @@ class SearchMoviesFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (gotBackFromDetails) return
-        if (isFiltersApplied) {
+        if (isFiltersApplied && !gotBackFromDetails) {
             viewModel.loadSearchMoviesByParams()
+        } else if (gotBackFromDetails){
+            return
         } else {
             viewModel.loadAllMovies()
         }

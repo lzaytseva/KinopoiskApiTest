@@ -22,7 +22,7 @@ class SearchMoviesRepositoryImpl @Inject constructor(
     private val filtersStorage: FiltersStorage
 ) : SearchMoviesRepository {
 
-    private var limit: Int? = null
+    private var limit: Int = 0
     private var nextPage: Int = 1
     private var searchQuery: String? = null
     override fun searchMoviesByTitle(
@@ -30,7 +30,6 @@ class SearchMoviesRepositoryImpl @Inject constructor(
         limit: Int,
         page: Int
     ): Flow<Resource<MoviesSearchResult>> {
-        this.limit = null
 
         return flow {
             try {
@@ -65,20 +64,15 @@ class SearchMoviesRepositoryImpl @Inject constructor(
         val searchQuery = this.searchQuery
         val limit = this.limit
 
-        return if (searchQuery != null && limit != null) {
-            searchMoviesByTitle(
-                searchQuery = searchQuery,
-                limit = limit,
-                page = nextPage
-            )
-        } else {
-            throw RuntimeException("loadNextPage call before got first results")
-        }
+        return searchMoviesByTitle(
+            searchQuery = searchQuery!!,
+            limit = limit,
+            page = nextPage
+        )
     }
 
-    override fun getAllMovies(limit: Int, page: Int): Flow<Resource<MoviesSearchResult>> {
-        this.limit = null
 
+    override fun getAllMovies(limit: Int, page: Int): Flow<Resource<MoviesSearchResult>> {
         return flow {
             try {
                 val response = remoteDataSource.getAllMovies(
@@ -107,18 +101,14 @@ class SearchMoviesRepositoryImpl @Inject constructor(
     }
 
     override fun loadAllMoviesNextPage(): Flow<Resource<MoviesSearchResult>> {
-        return limit?.let {
-            getAllMovies(
-                limit = it,
-                page = nextPage
-            )
-        }
-            ?: throw RuntimeException("loadNextPage call before got first results")
+        return getAllMovies(
+            limit = limit,
+            page = nextPage
+        )
     }
 
 
     override fun searchMoviesByParams(limit: Int, page: Int): Flow<Resource<MoviesSearchResult>> {
-        this.limit = null
         val filters = filtersStorage.get()
 
         return flow {
@@ -154,12 +144,9 @@ class SearchMoviesRepositoryImpl @Inject constructor(
     }
 
     override fun loadSearchByParamsNextPage(): Flow<Resource<MoviesSearchResult>> {
-        return limit?.let {
-            searchMoviesByParams(
-                limit = it,
-                page = nextPage
-            )
-        }
-            ?: throw RuntimeException("loadNextPage call before got first results")
+        return searchMoviesByParams(
+            limit = limit,
+            page = nextPage
+        )
     }
 }

@@ -176,51 +176,54 @@ class MovieDetailsFragment :
     }
 
     private fun setDataToRvs(details: MovieDetails) {
-        details.actors?.let {
-            actorsAdapter.submitList(it)
-            binding.rvActors.isVisible = true
-            binding.tvActorsNoInformation.isVisible = false
-        } ?: {
+        if (details.actors.isNullOrEmpty()) {
             binding.rvActors.isVisible = false
             binding.tvActorsNoInformation.isVisible = true
+        } else {
+            actorsAdapter.submitList(details.actors)
+            binding.rvActors.isVisible = true
+            binding.tvActorsNoInformation.isVisible = false
         }
 
-        details.crew?.let {
-            crewAdapter.submitList(it)
-            binding.rvCrew.isVisible = true
-            binding.tvCrewNoInformation.isVisible = false
-        } ?: {
+        if (details.crew.isNullOrEmpty()) {
             binding.rvCrew.isVisible = false
             binding.tvCrewNoInformation.isVisible = true
+        } else {
+            crewAdapter.submitList(details.crew)
+            binding.rvCrew.isVisible = true
+            binding.tvCrewNoInformation.isVisible = false
         }
 
-        details.reviews?.let {
-            reviewAdapter.submitList(it)
-            binding.rvReviews.isVisible = true
-            binding.tvReviewsNoInformation.isVisible = false
-        } ?: {
+        if (details.reviews.isNullOrEmpty()) {
             binding.rvReviews.isVisible = false
             binding.tvReviewsNoInformation.isVisible = true
+        } else {
+            reviewAdapter.submitList(details.reviews)
+            binding.rvReviews.isVisible = true
+            binding.tvReviewsNoInformation.isVisible = false
+
         }
-        details.seasonsInfo?.let {
-            binding.seasonsInfo.isVisible = true
-            binding.tvSeasonsInfo.isVisible = true
-            binding.tvSeasonsInfo.text = it
-        } ?: {
+
+        if (details.seasonsInfo.isNullOrBlank()) {
             binding.seasonsInfo.isVisible = true
             binding.tvSeasonsInfo.isVisible = false
             binding.tvSeasonsNoInformation.isVisible = true
+        } else {
+            binding.seasonsInfo.isVisible = true
+            binding.tvSeasonsInfo.isVisible = true
+            binding.tvSeasonsInfo.text = details.seasonsInfo
         }
 
-        details.images?.let {
-            imageAdapter.submitList(it)
-            binding.rvImages.isVisible = true
-            binding.tvImagesNoInformation.isVisible = false
-        } ?: {
+        if (details.images.isNullOrEmpty()) {
             binding.rvReviews.isVisible = false
             binding.tvImagesNoInformation.isVisible = true
+        } else {
+            imageAdapter.submitList(details.images)
+            binding.rvImages.isVisible = true
+            binding.tvImagesNoInformation.isVisible = false
         }
     }
+
 
     private fun showNoInternet() {
         setErrorLayout(R.drawable.ic_no_internet, R.string.no_internet_error)
