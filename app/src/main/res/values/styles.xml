@@ -47,4 +47,9 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+    <style name="ToggleBtnStyle" parent="@style/Widget.Material3.Button.OutlinedButton">
+        <item name="cornerRadius">0dp</item>
+        <item name="strokeColor">@android:color/transparent</item>
+    </style>
+
 </resources>
