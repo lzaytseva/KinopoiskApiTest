@@ -15,7 +15,7 @@ ksp = "1.9.22-1.0.16"
 jetpackNavigation = "2.7.7"
 dagger = "2.50"
 okhttp = "4.12.0"
-adapterDelegates = "4.3.2"
+viewpager = "1.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,7 +36,7 @@ dagger-core = { group = "com.google.dagger", name = "dagger", version.ref = "dag
 dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
 okhttp-core = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 okhttp-loggingInterceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
-
+viewpager = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -40,6 +40,7 @@ class SearchMoviesFragment :
     }
 
     private val adapter = MovieAdapter { movieId ->
+        gotBackFromDetails = true
         findNavController().navigate(
             R.id.action_searchMoviesFragment_to_movieDetailsFragment,
             MovieDetailsFragment.createArgs(movieId)
@@ -47,6 +48,7 @@ class SearchMoviesFragment :
     }
 
     private var isFiltersApplied = false
+    private var gotBackFromDetails = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +57,7 @@ class SearchMoviesFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (gotBackFromDetails) return
         if (isFiltersApplied) {
             viewModel.loadSearchMoviesByParams()
         } else {
@@ -263,6 +266,7 @@ class SearchMoviesFragment :
         if (!isTextFieldEmpty) {
             binding.tilSearch.setEndIconOnClickListener {
                 binding.etSearch.text?.clear()
+                viewModel.loadAllMovies()
             }
         } else {
             binding.tilSearch.setEndIconOnClickListener {

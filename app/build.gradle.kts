@@ -64,4 +64,5 @@ dependencies {
     implementation(libs.nav.fragment)
     implementation(libs.okhttp.core)
     implementation(libs.okhttp.loggingInterceptor)
+    implementation(libs.viewpager)
 }

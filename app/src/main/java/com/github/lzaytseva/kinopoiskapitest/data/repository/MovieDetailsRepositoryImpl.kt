@@ -55,11 +55,6 @@ class MovieDetailsRepositoryImpl @Inject constructor(
             }
 
 
-            val reviewsResult = reviewsDeferred.await()?.let {
-                mapper.mapReviewsResponseToReviewsResult(it)
-
-            }
-
             // Дополняем наш класс загруженными данными и эмитим
             val movieDetails = mapper.mapDetailsResponseToDomain(response).copy(
                 images = imagesDeferred.await()?.let { imagesResponse ->

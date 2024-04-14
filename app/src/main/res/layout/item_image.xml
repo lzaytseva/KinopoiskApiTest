@@ -7,7 +7,9 @@
 
     <ImageView
         android:id="@+id/iv_image"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -15,5 +17,6 @@
         android:layout_height="160dp"
         android:layout_marginEnd="16dp"
         tools:src="@drawable/poster_placeholder" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

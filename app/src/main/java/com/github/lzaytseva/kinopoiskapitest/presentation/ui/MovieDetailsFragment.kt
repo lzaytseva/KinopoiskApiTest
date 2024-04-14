@@ -211,15 +211,15 @@ class MovieDetailsFragment :
             binding.tvSeasonsInfo.isVisible = false
             binding.tvSeasonsNoInformation.isVisible = true
         }
-//
-//        details.images?.let {
-//            imageAdapter.submitList(it)
-//            binding.rvImages.isVisible = true
-//            binding.tvImagesNoInformation.isVisible = false
-//        } ?: {
-//            binding.rvReviews.isVisible = false
-//            binding.tvImagesNoInformation.isVisible = true
-//        }
+
+        details.images?.let {
+            imageAdapter.submitList(it)
+            binding.rvImages.isVisible = true
+            binding.tvImagesNoInformation.isVisible = false
+        } ?: {
+            binding.rvReviews.isVisible = false
+            binding.tvImagesNoInformation.isVisible = true
+        }
     }
 
     private fun showNoInternet() {
