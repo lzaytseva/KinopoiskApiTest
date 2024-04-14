@@ -60,8 +60,8 @@ class MovieAdapter(
             )
         }
 
-        private fun setOrigNameAndYear(origName: String?, year: Int?) {
-            val divider = if (origName.isNullOrBlank() || year == null) {
+        private fun setOrigNameAndYear(origName: String?, year: String?) {
+            val divider = if (origName.isNullOrBlank() || year.isNullOrBlank()) {
                 EMPTY_STRING
             } else {
                 DIVIDER_NAME
@@ -70,7 +70,7 @@ class MovieAdapter(
                 R.string.values_with_divider,
                 origName ?: EMPTY_STRING,
                 divider,
-                year?.toString()
+                year ?: EMPTY_STRING
             )
             if (text.isBlank()) {
                 binding.tvOrigNameAndYear.isVisible = false

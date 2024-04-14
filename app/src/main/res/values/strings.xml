@@ -38,5 +38,7 @@
     <string name="minutes_count">%1$d мин</string>
     <string name="hours_count">%1$d ч</string>
     <string name="hours_minutes">%1$d ч %2$d мин</string>
-
+    <string name="string_with_comma">%1$s, </string>
+    <string name="hide">Скрыть</string>
+    <string name="placeholder_no_reviews">Нет отзывов</string>
 </resources>

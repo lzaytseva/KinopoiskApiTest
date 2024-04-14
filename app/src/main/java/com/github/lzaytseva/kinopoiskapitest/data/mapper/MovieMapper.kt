@@ -39,7 +39,7 @@ class MovieMapper @Inject constructor() {
     private fun MovieDto.getYear(): String? {
         return if (isSeries == true) {
             releaseYears?.let {
-                releaseYearsToString(it)
+                releaseYearsToString(it.first())
             }
         } else {
             year?.toString()

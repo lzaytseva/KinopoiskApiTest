@@ -54,9 +54,6 @@ class MovieDetailsRepositoryImpl @Inject constructor(
                 reviewsDeferred = getReviewsFirstPage(movieId.toString())
             }
 
-            val imagesResult = imagesDeferred.await()?.let {
-                mapper.mapImagesResponseToImagesResult(it)
-            }
 
             val reviewsResult = reviewsDeferred.await()?.let {
                 mapper.mapReviewsResponseToReviewsResult(it)
@@ -65,8 +62,12 @@ class MovieDetailsRepositoryImpl @Inject constructor(
 
             // Дополняем наш класс загруженными данными и эмитим
             val movieDetails = mapper.mapDetailsResponseToDomain(response).copy(
-                images = imagesResult,
-                reviews = reviewsResult
+                images = imagesDeferred.await()?.let { imagesResponse ->
+                    imagesResponse.images.mapNotNull { it.previewUrl }
+                },
+                reviews = reviewsDeferred.await()?.let { reviewsResponse ->
+                    mapper.mapReviewsToDomain(reviewsResponse.reviews)
+                }
             )
 
             emit(Resource.Success(movieDetails))

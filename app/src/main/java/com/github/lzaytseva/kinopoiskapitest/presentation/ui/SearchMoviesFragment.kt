@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.lzaytseva.kinopoiskapitest.R
@@ -37,7 +38,10 @@ class SearchMoviesFragment :
     }
 
     private val adapter = MovieAdapter { movieId ->
-        // TODO
+        findNavController().navigate(
+            R.id.action_searchMoviesFragment_to_movieDetailsFragment,
+            MovieDetailsFragment.createArgs(movieId)
+        )
     }
 
     override fun onConfigureViews() {
